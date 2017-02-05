@@ -34,10 +34,54 @@ p {
 	margin: 8px 0 0 0;
 }
 
-.container p {
+.container {
 	text-align: center;
 	padding: 0;
+	margin: 0 auto;
+	width: 800px;
+	max-width: 90%;
+	position: relative;
 }
+
+.container:before, .container:after {
+	content: "";
+  display: table;
+}
+
+.container:after {
+  clear: both;
+}
+
+#options-list {
+	text-align: center;
+	list-style-type: none;
+	margin: 0 auto;
+	padding: 0px;
+}
+
+.li-option {
+	margin: 0 0 10px 0;
+}
+
+input[type=text] {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	width: 50%;
+	padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+input[type=text]:focus {
+		background-color: lightblue;
+}
+
+
+/* {
+	border: 1px dotted red;
+}*/
+
 
 /****** Header Styling ******/
 
@@ -104,9 +148,13 @@ img {
 	display: block;
 }
 
+logo {
+	margin-bottom: 20px;
+}
+
 .clementine-text { /* Styling for the Clementine.js text */
 	padding: 0;
-	margin: -25px 0 0 0;
+	margin: -25px 0 20px 0;
 	font-weight: 500;
 	font-size: 60px;
 	color: #FFA000;
@@ -115,7 +163,7 @@ img {
 /****** Click Styling ******/
 
 .btn-container {	/* Styling for the div that contains the buttons */
-	margin: -10px auto 0 auto;
+	margin: 0 auto;
 	text-align: center;
 }
 
@@ -128,8 +176,18 @@ img {
 	font-size: 14px;
 	border-radius: 3px;
 	padding: 10px 5px;
-	width: 100px;
+	width: 120px;
 	font-weight: 500;
+	font-family: 'Roboto', sans-serif;
+	margin-bottom: 10px;
+}
+
+.addOptionAndSumbit {
+	text-align: center;
+}
+
+.btn-add-option {
+
 }
 
 .btn:focus {	/* Remove outline when hovering over button */
@@ -143,8 +201,7 @@ img {
 }
 
 .btn-delete {	/* Styling for delete button */
-	background-color: #ECEFF1;
-	color: #212121;
+
 }
 
 #click-nbr {
