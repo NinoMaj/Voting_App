@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 
 <html>
@@ -28,14 +29,14 @@
   <div class="container">
     <div class="btn-container">
       <button type="submit" class="btn btn-add">ADD POLL</button>
-      <a href="/myPolls" alt="go to my poll button"><button class="btn">MY POLLS</button></a>
+      <a href="/myPolls" alt="go to add poll page/homepage"><button class="btn my-polls">MY POLLS</button></a>
     </div>
   </div>
 
   <div class="container">
     <div>
-      <h3 class="">New Poll</h3>
-      <form method="post" action="/api/:id/pollSubmitted" role="form">
+      <h3 class="">New poll</h3>
+      <form method="post" action="/pollSubmitted" role="form">
         <p>Poll name</p>
         <input class="pollName" type="text" name="pollName" placeholder="PC or Mac">
         <p>Options</p>
@@ -64,7 +65,7 @@
   <script type="text/javascript" src="common/ajax-functions.js"></script>
   <!--<script type="text/javascript" src="controllers/clickController.client.js"></script>-->
   <script type="text/javascript" src="controllers/userController.client.js"></script>
-  <script type="text/javascript" src="controllers/pollController.client.js"></script>
+  <script type="text/javascript" src="controllers/indexController.client.js"></script>
 </body>
 
 </html>

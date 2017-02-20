@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 
 <html>
@@ -27,16 +28,19 @@
 
   <div class="container">
     <div class="btn-container">
-      <button type="submit" class="btn btn-add">ADD POLL</button>
+      <a href="/" alt="go to my poll button"><button type="submit" class="btn btn-add">ADD POLL</button></a>
       <button class="btn">MY POLLS</button>
     </div>
   </div>
 
   <div class="container">
     <h3 class="">My polls</h3>
-    <ul id="options-list">
-      <li class="li-option"><input type="text" name="option1"></li>
-      <li class="li-option"><input type="text" name="option2"></li>
+    <ul id="options-list-myPolls">
+      <li class="li-myPolls">Loading...</li>
+    </ul>
+    <button type="button" class="btn">ADD OPTION</button>
+    <button type="button" class="btn btn-delete">REMOVE OPTION</button>
+    <button class="btn btnSubmit" type="submit">SUMBIT ></button>
   </div>
 
   <!--
@@ -50,9 +54,9 @@
 		</div>
 	-->
 
-  <script type="text/javascript" src="common/ajax-functions.js"></script>
-  <script type="text/javascript" src="controllers/userController.client.js"></script>
-  <script type="text/javascript" src="controllers/pollController.client.js"></script>
+  <script type="text/javascript" src="../../common/ajax-functions.js"></script>
+  <script type="text/javascript" src="../../controllers/userController.client.js"></script>
+  <script type="text/javascript" src="../../controllers/pollsController.client.js"></script>
 </body>
 
 </html>

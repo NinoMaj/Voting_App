@@ -18,8 +18,10 @@
   "homepage": "https://github.com/NinoMaj/Voting_App#readme",
   "dependencies": {
     "body-parser": "^1.16.0",
+    "chart.js": "^2.5.0",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
+    "express-handlebars": "^3.0.0",
     "express-session": "^1.15.0",
     "mongoose": "^4.8.1",
     "passport": "^0.3.2",

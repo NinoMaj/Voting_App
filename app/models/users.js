@@ -9,11 +9,7 @@ var User = new Schema({
 		displayName: String,
 		username: String,
 		publicRepos: Number
-	},
-	nbrClicks: {
-		clicks: Number
-	},
-	polls: [{}]
+	}
 });
 
 module.exports = mongoose.model('User', User);

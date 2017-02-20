@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <title>Voting App</title>
+
+  <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<!-- Uses built-in `if` helper. -->
+{{#if welcome}}
+<div class="container">
+  <header>
+    <p>Welcome, <span id="display-name"></span>!</p>
+    <a class="menu" href="/profile">Profile</a>
+    <p>|</p>
+    <a class="menu" href="/logout">Logout</a>
+  </header>
+</div>
+{{else}}
+  <div class="welcome-space">
+  </div>
+{{/if}}
+
+
+<div class="container">
+  <img src="/public/img/clementine_150.png" />
+  <br />
+  <p class="clementine-text">Voting app</p>
+</div>
+
+{{{ body }}}
+
+
+</body>
+
+</html>

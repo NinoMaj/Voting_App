@@ -52,20 +52,32 @@ p {
   clear: both;
 }
 
-#options-list {
+#options-list, #options-list-myPolls {
 	text-align: center;
 	list-style-type: none;
 	margin: 0 auto;
 	padding: 0px;
 }
 
-.li-option {
-	margin: 0 0 10px 0;
+#options-list-myPolls {
+	margin-bottom: 10px;
+	max-width: 400px;
+}
+
+.li-myPolls {
+	background-color: #FFA000;
+	margin-bottom: 0 auto 10px auto;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.25em;
+	padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
 
 input[type=text] {
 	font-family: 'Roboto', sans-serif;
-	font-size: 16px;
+	font-size: 1em;
 	width: 50%;
 	padding: 12px 20px;
   margin: 8px 0;
@@ -77,6 +89,9 @@ input[type=text]:focus {
 		background-color: lightblue;
 }
 
+.welcome-space {
+	margin-bottom: 87px;
+}
 
 /* {
 	border: 1px dotted red;
@@ -118,7 +133,21 @@ header a ~ p {
 #display-name {
 	font-weight: 400;
 }
+/*
+.a-myPolls {
+	text-decoration: none;
+	color: black;
+}
+*/
+.li-myPolls {
+	position: relative;
+	cursor: pointer;
+}
 
+.fa-trash-o {
+	position: absolute;
+  right: 6px;
+}
 /****** Login Styling ******/
 
 .login {
@@ -180,6 +209,7 @@ logo {
 	font-weight: 500;
 	font-family: 'Roboto', sans-serif;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 
 .addOptionAndSumbit {
