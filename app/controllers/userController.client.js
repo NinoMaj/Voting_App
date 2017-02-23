@@ -2,36 +2,48 @@
 
 (function () {
 
-   var profileId = document.querySelector('#profile-id') || null;
-   var profileUsername = document.querySelector('#profile-username') || null;
-   var profileRepos = document.querySelector('#profile-repos') || null;
-   var displayName = document.querySelector('#display-name');
-   var apiUrl = appUrl + '/api/:id';
+  let profilePicture = document.querySelector('#profile-picture') || null;
+  let name = document.querySelector('#display-name') || null;
+  let email = document.querySelector('#profile-email') || null;
+  let gender = document.querySelector('#profile-gender') || null;
+  let profileId = document.querySelector('#profile-id') || null;
 
-   function updateHtmlElement (data, element, userProperty) {
+
+
+  let apiUrl = appUrl + '/api/:id';
+
+  function updateHtmlElement(data, element, userProperty) {
+    if (data[userProperty]) {
       element.innerHTML = data[userProperty];
-   }
+    }
+  }
 
-   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
-      var userObject = JSON.parse(data);
+  function updateImgElement(data, element, userProperty) {
+    element.src = data[userProperty];
+  }
 
-      if (userObject.displayName !== null) {
-         updateHtmlElement(userObject, displayName, 'displayName');
-      } else {
-         updateHtmlElement(userObject, displayName, 'username');
-      }
+  ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
+    console.log("in userContoller, here is data from AJAX:", data);
+    let userObject = JSON.parse(data);
+    if (profilePicture !== null) {
+      updateImgElement(userObject.profile, profilePicture, 'picture');
+    }
 
-      if (profileId !== null) {
-         updateHtmlElement(userObject, profileId, 'id');   
-      }
+    if (name !== null) {
+      updateHtmlElement(userObject.profile, name, 'name');
+    } 
 
-      if (profileUsername !== null) {
-         updateHtmlElement(userObject, profileUsername, 'username');   
-      }
+    if (email !== null) {
+      updateHtmlElement(userObject, email, 'email');
+    }
 
-      if (profileRepos !== null) {
-         updateHtmlElement(userObject, profileRepos, 'publicRepos');   
-      }
+    if (gender !== null) {
+      updateHtmlElement(userObject.profile, gender, 'gender');
+    }
 
-   }));
+    if (profileId !== null) {
+      updateHtmlElement(userObject.profile, profileId, 'id');
+    }
+
+  }));
 })();

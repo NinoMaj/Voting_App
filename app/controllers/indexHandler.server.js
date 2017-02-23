@@ -4,115 +4,127 @@ var Users = require('../models/users.js');
 var Polls = require('../models/polls.js');
 
 function PollHandler() {
-// 	let author = Users
-// 		.find({ 'username': "Dummy string" }, { '_id': false })
-// 		.exec(function (err, result) {
-// 			if (err) { throw err; }
-// 			console.log('in this.getPolls result:', result);
-// 			res.json(result);
-// 		});
-// };
 	var path = process.cwd();
+
+	// getting all polls from logged in user
 	this.getPolls = function (req, res) {
 		Polls
-			.find({ 'author': req.user.github.displayName }, { '_id': false })
+			.find({ 'author': req.user.profile.name })
 			.exec(function (err, result) {
 				if (err) { throw err; }
-				console.log('in this.getPolls result:', result);
 				res.json(result);
 			});
 	};
 
+	// getting all polls
+	this.getAllPolls = function (req, res) {
+		Polls
+			.find({})
+			.exec(function (err, result) {
+				if (err) { throw err; }
+				res.json(result);
+			});
+	};
+
+	// adding new poll
 	this.addPoll = function (req, res) {
-		console.log('req.user.github.displayName', req.user.github.displayName);
-		console.log('req.body:', typeof req.body, req.body);
 		let options = [];
 		for (let key in req.body) {
 			if (req.body.hasOwnProperty(key) && key != 'pollName') {
 				options.push(req.body[key])
 			}
 		}
-		console.log('options', options);
-		let author = req.user.github.displayName;
+		let pollName = req.body.pollName.replace(/[?+]/g, ""); // removing ? from poll name
+		let author = req.user.profile.name;
 		let votes = new Array(Object.keys(options).length);
 		votes.fill(0, 0, Object.keys(options).length);
 		let user_voted = [""];
 		let date_created = Date.now;
-		// newPoll[req.body.pollName].URL = req.user.github.username + "/" + req.body.pollName;
+
+		// reating new poll 
 		let newPoll = new Polls({
-			pollName: req.body.pollName,
-			author: req.user.github.displayName,
+			pollName: pollName,
+			author: req.user.profile.name,
 			options: options,
 			votes: votes,
-			users_voted: [""],
+			users_voted: [],
 			date_created: Date.now()
 		});
 
-		newPoll.save(function (err) {
+		// saving new poll in db
+		newPoll.save(function (err, poll) {
 			if (err) throw err;
 			console.log('Poll saved successfully!');
+			res.render('pollSubmitted', {
+				welcome: true,
+				URLname: pollName,
+				URL: process.env.APP_URL + 'polls/' + poll._id
+			});
 		});
 
-		res.render('pollSubmitted', {
-			welcome: true
+	};
+
+	// adding vote
+	this.addVote = function (req, res, callback) {
+		Polls.findById(req.params.pollId, function (err, poll) {
+			if (err) throw err;
+
+			// save poll
+			function save() {
+				poll.save(function (err) {
+					if (err) throw err;
+					console.log('Poll successfully updated in addVote! New poll:', poll);
+					res.json(poll);
+				});
+			}
+
+			// updating poll data
+			function updatePoll() {
+				let newVoteCount = poll.votes[req.params.optionNbr] + 1;
+				// mongoose don't support standard change of array
+				poll.votes.set(req.params.optionNbr, newVoteCount);
+				if (req.user) {
+					poll.users_voted.push(req.user.profile.name);
+				} else {
+					poll.users_voted.push(ip);
+				}
+				save();
+			}
+
+			let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+			// check if user is signed in and did he already voted
+			if (req.user && !poll.users_voted.includes(req.user.profile.name)) {
+				updatePoll();
+				// check if guest already voted
+			} else if (!req.user && !poll.users_voted.includes(ip)) {
+				updatePoll();
+			} else {
+				res.send(false);
+			}
+
 		});
 	};
 
-	this.findPoll = function (req, res, reqRoute) {
-		// console.log('in this.findPoll reqRoute:', reqRoute);
+	// find poll that user clicked on
+	this.findPoll = function (req, res, reqRoute, callback) {
 		Polls
-			.findOne({ pollName: reqRoute }, { '_id': false })
+			.findOne({ _id: reqRoute })
 			.exec(function (err, result) {
 				if (err) { throw err; }
-				console.log('in this.findPoll result:', result);
-				let jsonData = JSON.stringify(result);
-				if (result != null) {
-					res.render('polls/poll', {
-						result,
-						reqRoute,
-						// encodedJson: encodeURIComponent(JSON.stringify(jsonData)),
-						welcome: true
-					})
-				}
-				else {
-					res.status(404);
-					res.render('404');
-				}
+				let resultStr = JSON.stringify(result);
+				callback(result);
 			});
 	};
 
+	// delete poll
 	this.deletePoll = function (req, res, reqRoute) {
-		console.log('in deletePoll handler req', reqRoute);
 		Polls
-			.findOneAndRemove({ pollName: reqRoute }, function (err, result) {
+			.findOneAndRemove({ _id: reqRoute }, function (err, result) {
 				if (err) { throw err; };
-				console.log('Removed! Result after removal:', result)
+				console.log('Poll removed!');
 			})
 		res.end();
 	};
 
-	// this.addOption = function (req, res) {
-	// 	Users
-	// 		.findOneAndUpdate({ 'github.id': req.user.github.id }, { $inc: { 'nbrClicks.clicks': 1 } })
-	// 		.exec(function (err, result) {
-	// 				if (err) { throw err; }
-
-	// 				res.json(result.nbrClicks);
-	// 			}
-	// 		);
-	// };
-
-	// this.resetClicks = function (req, res) {
-	// 	Users
-	// 		.findOneAndUpdate({ 'github.id': req.user.github.id }, { 'nbrClicks.clicks': 0 })
-	// 		.exec(function (err, result) {
-	// 				if (err) { throw err; }
-
-	// 				res.json(result.nbrClicks);
-	// 			}
-	// 		);
-	// };
-
 }
-
 module.exports = PollHandler;

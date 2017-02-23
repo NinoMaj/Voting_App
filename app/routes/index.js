@@ -29,7 +29,7 @@ module.exports = function (app, passport) {
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
 			res.render('index', {
-				welcome: true
+				welcome: req.user
 			});
 		});
 
@@ -53,9 +53,11 @@ module.exports = function (app, passport) {
 
 	app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
-			res.json(req.user.github);
+			console.log('req.user in api/:id', req.user)
+			res.json(req.user);
 		});
 
+	// github auth
 	app.route('/auth/github')
 		.get(passport.authenticate('github'));
 
@@ -65,54 +67,74 @@ module.exports = function (app, passport) {
 			failureRedirect: '/login'
 		}));
 
+	// google auth
+	app.get('/auth/google',
+		passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+	app.get('/auth/google/callback',
+		passport.authenticate('google', { failureRedirect: '/login' }),
+		function (req, res) {
+			res.redirect('/');
+		});
+
 	app.route('/myPolls')
 		.get(isLoggedIn, function (req, res) {
-			res.render('myPolls', {
-				welcome: true
+			res.render('polls/myPolls', {
+				welcome: req.user
 			});
 		})
 
 	app.route('/allPolls')
-		.get(isLoggedIn, function (req, res) {
-			res.render('myPolls', {
-				welcome: true
+		.get(function (req, res) {
+			console.log('req:', req)
+			res.render('polls/allPolls', {
+				welcome: req.user
 			});
 		})
 
-	// app.route('/' + url + '/' + ':name', function (req, res) {
-	// 	var name = req.params.name;
-	// 	res.render(url + '/' + name);
-	// });
-
+	app.route('/AllPollsData')
+		.get(pollHandler.getAllPolls);
 
 	app.route('/myPollsData')
 		.get(isLoggedIn, pollHandler.getPolls);
 
-	app.route('/delteData/:id')
+	app.route('/deleteData/:id')
 		.delete(isLoggedIn, function (req, res) {
-			pollHandler.deletePoll(req, res, req.params.id)
+			pollHandler.deletePoll(req, res, req.params.id);
 		});
 
 	app.route('/pollSubmitted')
-		.post(isLoggedIn, pollHandler.addPoll);
-
-	app.route('/polls/:id')
-		.get(isLoggedIn, function (req, res) {
-			console.log('req.params.id', req.params.id);
-			pollHandler.findPoll(req, res, req.params.id);
+		.post(isLoggedIn, function (req, res) {
+			console.log('req', req.body);
+			pollHandler.addPoll(req, res);
 		});
 
-/*
-	app.get('/polls/*', function (req, res) {
-		var page = pagesfromdb[key];
-		if (page != null) {
-			res.render(page.render, page.language)
-		}
-		else {
-			res.send(404);
-		}
-	});
-*/
+	app.route('/polls/:id')
+		.get(function (req, res) {
+			console.log('req.params.id', req.params.id);
+			pollHandler.findPoll(req, res, req.params.id, function (result) {
+				if (result != null) {
+					res.render('polls/poll', {
+						result,
+						reqRoute: req.params.id,
+						resultStr: JSON.stringify(result),
+						welcome: req.user
+					})
+				}
+				else {
+					res.status(404);
+					res.render('404');
+				}
+			});
+		});
+
+	app.route('/voteAdded/:pollId/:optionNbr')
+		.get(function (req, res) {
+			pollHandler.addVote(req, res, function (result) {
+				console.log('result in voteAdded route', result);
+				return result
+			});
+		});
 
 	// custom 404 page
 	app.use(function (req, res) {

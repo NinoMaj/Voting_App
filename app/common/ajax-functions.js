@@ -18,11 +18,9 @@ var ajaxFunctions = {
 
       xmlhttp.onreadystatechange = function () {
          if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-           console.log('in Ajax function, this is xmlhttp.response', xmlhttp.response);
             callback(xmlhttp.response);
          }
       };
-      console.log('ajax function method:', method, ' URL', url, ' callback:', callback);
       xmlhttp.open(method, url, true);
       xmlhttp.send();
    }

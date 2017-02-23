@@ -8,15 +8,17 @@
 
 <div class="container">
   <div>
-    <h3 class="">New poll</h3>
+    <h3>New poll</h3>
     <form method="post" action="/pollSubmitted" role="form">
-      <p>Poll name</p>
-      <input class="pollName" type="text" name="pollName" placeholder="PC or Mac">
-      <p>Options</p>
-      <ul id="options-list">
-        <li class="li-option"><input type="text" name="option1" placeholder="PC"></li>
-        <li class="li-option"><input type="text" name="option2" placeholder="Mac"></li>
-      </ul>
+      <div class="input-container">
+        <p>Poll name</p>
+        <input class="pollName" type="text" name="pollName" placeholder="PC or Mac">
+        <p>Options</p>
+        <ul id="options-list">
+          <li class="li-option"><input type="text" name="option1" placeholder="PC"></li>
+          <li class="li-option"><input type="text" name="option2" placeholder="Mac"></li>
+        </ul>
+      </div>
       <button type="button" class="btn btn-add-option">ADD OPTION</button>
       <button type="button" class="btn btn-delete">REMOVE OPTION</button>
       <button class="btn btnSubmit" type="submit">SUMBIT ></button>

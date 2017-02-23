@@ -3,49 +3,35 @@
 (function () {
 
 	window.onload = function () {
-		let addOption = document.querySelector(".btn-add-option"),
-			pollName = document.querySelector('.pollName'),
-			btnSubmit = document.querySelector('.btnSubmit'),
-			deleteButton = document.querySelector('.btn-delete'),
-			ul = document.querySelector("#options-list-myPolls"),
-			// a_elem = document.querySelector(".a-myPolls"),
-			li_elements = ul.getElementsByTagName("li"),
-			myPollsDataURL = window.location.origin + '/myPollsData',
-			deleteDataURL = window.location.origin + '/delteData',
-			deleteMode = false;
+		let deleteButton = document.querySelector('.btn-delete'),
+		  	ul = document.querySelector("#options-list-myPolls"),
+			  myPollsDataURL = window.location.origin + '/myPollsData',
+			  deleteDataURL = window.location.origin + '/deleteData',
+			  deleteMode = false;
 
-		function updatePolls(data) {
-			console.log('data before parse', data);
+		function updateMyPolls(data) {
 			let polls = JSON.parse(data);
-			// console.log('data after parse', JSONdata);
+			let newLi;
 			if (polls.length === 0) {
-				li_elements.innerHTML = "You don't have any polls";
+				newLi = document.createElement("li");
+				newLi.className += "li-myPolls";
+				newLi.innerHTML = "You don't have any polls"
 			} else {
-				// 	a_elem.href = window.location.origin + "/polls/" + JSONdata.polls[0].pollName;
-				// li_elements[0].innerHTML = JSONdata.polls[0].pollName;
-				// li_elements[0].onclick = function (e) {
-				// 	window.location = window.location.origin + '/polls/' + JSONdata.polls[0].pollName;
-				// }
-				let newLi;
-				// let newA;
 				for (let i = 0; i < polls.length; i++) {
-					// newA = document.createElement("a");
-					// newA.href = window.location.origin + "/polls/" + JSONdata.polls[i].pollName;
-					// newA.className += "a-myPolls";
 					newLi = document.createElement("li");
 					newLi.className += "li-myPolls";
 					newLi.innerHTML = polls[i].pollName;
 					newLi.onclick = function (e) {
 						if (deleteMode == false) {
-							window.location = window.location.origin + '/polls/' + polls[i].pollName;
+							window.location = window.location.origin + '/polls/' + polls[i]._id;
 						} else {
 							console.log("Delete");
 							while (ul.firstChild) {
 								ul.removeChild(ul.firstChild);
 							}
-							ajaxFunctions.ajaxRequest('DELETE', deleteDataURL + '/' + polls[i].pollName, function () {
+							ajaxFunctions.ajaxRequest('DELETE', deleteDataURL + '/' + polls[i]._id, function () {
 								ajaxFunctions.ajaxRequest('GET', myPollsDataURL, function (result) {
-									updatePolls(result);
+									updateMyPolls(result);
 									deleteMode = false;
 									changingDeleteMode();
 								});
@@ -56,7 +42,9 @@
 				}
 			}
 		}
-		ajaxFunctions.ajaxRequest('GET', myPollsDataURL, updatePolls);
+
+		//getting data and updating my polls
+		ajaxFunctions.ajaxRequest('GET', myPollsDataURL, updateMyPolls);
 
 		function changingDeleteMode() {
 			if (deleteMode === false) {
@@ -91,36 +79,10 @@
 			}
 		}
 
+		//changing delete mode - ON / OFF
 		deleteButton.addEventListener('click', function (event) {
 			changingDeleteMode();
 		}, false);
 
-		// btnSubmit.addEventListener('click', function () {
-		// 	ajaxFunctions.ajaxRequest('POST', apiUrl, function () {
-		// 		console.log("Poll submitted");
-		// 	});
-		// }, false);
-
-		// addOption.addEventListener('click', function () {
-		// 	console.log('sam tu');
-		// 	let li = document.createElement("li"),
-		// 		  input = document.createElement("input"),
-		// 			optionNumber = ulIndex.getElementsByTagName("li").length + 1,
-		// 		  optionName = "option" + optionNumber;
-		// 	li.className += "li-option";
-		// 	input.type = "text";
-		// 	input.name = optionName;
-		// 	input.placeholder = "...";
-		// 	li.appendChild(input);
-		// 	ulIndex.appendChild(li);
-		// }, false);
-
-		// deleteButton.addEventListener('click', function () {
-
-		//   ajaxFunctions.ajaxRequest('DELETE', apiUrl, function () {
-		//     ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
-		//   });
-
-		// }, false);
 	}
 })();

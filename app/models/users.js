@@ -3,13 +3,28 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var User = new Schema({
-	github: {
-		id: String,
-		displayName: String,
-		username: String,
-		publicRepos: Number
-	}
-});
+const User = new mongoose.Schema({
+  email: { type: String, unique: true },
+  password: String,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
+
+  facebook: String,
+  twitter: String,
+  google: String,
+  github: String,
+  instagram: String,
+  linkedin: String,
+  steam: String,
+  tokens: Array,
+
+  profile: {
+    name: String,
+    gender: String,
+    location: String,
+    website: String,
+    picture: String
+  }
+}, { timestamps: true });
 
 module.exports = mongoose.model('User', User);
