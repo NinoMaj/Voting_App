@@ -54,7 +54,7 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('/public', express.static(process.cwd() + '/public'));
+app.use('assets', express.static(process.cwd() + '/assets'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
 
 app.use(session({
