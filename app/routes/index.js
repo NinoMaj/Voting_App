@@ -110,7 +110,7 @@ module.exports = function (app, passport) {
 		.get(function (req, res) {
 			pollHandler.findPoll(req, res, req.params.id, function (result) {
 				if (result != null) {
-					res.render('/poll', {
+					res.render('poll', {
 						result,
 						reqRoute: req.params.id,
 						resultStr: JSON.stringify(result),
