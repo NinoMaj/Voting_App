@@ -22,10 +22,10 @@
             label: '# of Votes',
             data: poll.votes,
             backgroundColor:
-            'rgba(0,75,84, 1)'
+            'rgba(0, 188, 212, 0.3)'
             ,
             borderColor:
-            'rgba(0,75,84, 1)'
+            'rgba(0, 188, 212, 0.3)'
             ,
             borderWidth: 1
           }]

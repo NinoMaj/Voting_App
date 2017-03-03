@@ -122,7 +122,7 @@ module.exports = function (passport) {
 					if (existingEmailUser) {
 						// req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with GitHub manually from Account Settings.' });
 						console.log('There is already a Github account that belongs to you. Sign in with that account or delete it, then link it with your current account.')
-						done(err);
+						done(err, existingEmailUser);
 					} else {
 						const user = new User();
 						user.email = profile._json.email;
