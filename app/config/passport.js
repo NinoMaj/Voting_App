@@ -57,10 +57,11 @@ module.exports = function (passport) {
 				// profile.emails[0].value
 				User.findOne({ email: profile._json.email}, (err, existingEmailUser) => {
 					if (err) { return done(err); }
-					if (null) {
+					console.log('existingEmailUser', existingEmailUser)
+					if (existingEmailUser) {
 						// req.flash('errors', { msg: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
 						console.log('There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.')
-						done(err);
+						done(err, existingEmailUser);
 					} else {
 						const user = new User();
 						user.email = profile._json.email // i ovdje promijeniti
