@@ -25,7 +25,6 @@
 						if (deleteMode == false) {
 							window.location = window.location.origin + '/polls/' + polls[i]._id;
 						} else {
-							console.log("Delete");
 							while (ul.firstChild) {
 								ul.removeChild(ul.firstChild);
 							}

@@ -23,7 +23,6 @@
   }
 
   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
-    console.log("in userContoller, here is data from AJAX:", data);
     let userObject = JSON.parse(data);
     if (profilePicture !== null) {
       updateImgElement(userObject.profile, profilePicture, 'picture');

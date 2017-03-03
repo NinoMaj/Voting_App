@@ -19,7 +19,6 @@ module.exports = function (app, passport) {
 
 	// bodyparser
 	var bodyParser = require('body-parser');
-	// app.use(require('body-parser')()); // to process form post request in request body <-- deprecated
 
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({
@@ -53,7 +52,6 @@ module.exports = function (app, passport) {
 
 	app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
-			console.log('req.user in api/:id', req.user)
 			res.json(req.user);
 		});
 
@@ -105,13 +103,11 @@ module.exports = function (app, passport) {
 
 	app.route('/pollSubmitted')
 		.post(isLoggedIn, function (req, res) {
-			console.log('req', req.body);
 			pollHandler.addPoll(req, res);
 		});
 
 	app.route('/polls/:id')
 		.get(function (req, res) {
-			console.log('req.params.id', req.params.id);
 			pollHandler.findPoll(req, res, req.params.id, function (result) {
 				if (result != null) {
 					res.render('polls/poll', {
@@ -131,14 +127,12 @@ module.exports = function (app, passport) {
 	app.route('/voteAdded/:pollId/:optionNbr')
 		.get(function (req, res) {
 			pollHandler.addVote(req, res, function (result) {
-				console.log('result in voteAdded route', result);
 				return result
 			});
 		});
 
 	// custom 404 page
 	app.use(function (req, res) {
-		console.log(res);
 		res.status(404);
 		res.render('404');
 	})

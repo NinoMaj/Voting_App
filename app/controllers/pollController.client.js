@@ -78,10 +78,8 @@
           ajaxFunctions.ajaxRequest('GET', voteAddedURL + '/' + poll._id + '/' + i, function (result) {
             if (result != 'false') {
               drawChart(JSON.parse(result));
-              console.log('Chart updated');
             } else {
               alert('You already voted!');
-              console.log('User already voted.');
             }
           });
         }

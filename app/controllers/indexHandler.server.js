@@ -34,7 +34,6 @@ function PollHandler() {
 				options.push(req.body[key])
 			}
 		}
-		let pollName = req.body.pollName.replace(/[?+]/g, ""); // removing ? from poll name
 		let author = req.user.profile.name;
 		let votes = new Array(Object.keys(options).length);
 		votes.fill(0, 0, Object.keys(options).length);
@@ -73,7 +72,7 @@ function PollHandler() {
 			function save() {
 				poll.save(function (err) {
 					if (err) throw err;
-					console.log('Poll successfully updated in addVote! New poll:', poll);
+					console.log('Poll successfully updated in addVote!');
 					res.json(poll);
 				});
 			}
@@ -81,7 +80,6 @@ function PollHandler() {
 			// updating poll data
 			function updatePoll() {
 				let newVoteCount = poll.votes[req.params.optionNbr] + 1;
-				// mongoose don't support standard change of array
 				poll.votes.set(req.params.optionNbr, newVoteCount);
 				if (req.user) {
 					poll.users_voted.push(req.user.profile.name);
