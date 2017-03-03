@@ -19,7 +19,7 @@
 					newLi.className += "li-myPolls";
 					newLi.innerHTML = polls[i].pollName;
 					newLi.onclick = function (e) {
-						window.location = window.location.origin + '/polls/' + polls[i]._id;
+						window.location = window.location.origin + polls[i]._id;
 					}
 					ul.appendChild(newLi);
 				}
