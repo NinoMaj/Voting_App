@@ -48,7 +48,6 @@
 		function changingDeleteMode() {
 			if (deleteMode === false) {
 				let allLi = document.getElementsByClassName("li-myPolls");
-				// ls
 				let garbageCanIcon;
 				for (let i = 0; i < allLi.length; i++) {
 					garbageCanIcon = document.createElement("i");
@@ -56,9 +55,6 @@
 					garbageCanIcon.id = "i" + i;
 					garbageCanIcon.ariaHidden = true;
 					allLi[i].appendChild(garbageCanIcon);
-					// garbageCanIcon.addEventListener('click', function(e) {
-					// 	e.parentNode.parentNode.removeChild(e.parentNode);
-					// })
 				}
 				let allI = document.getElementsByClassName("fa-trash-o");
 				deleteMode = true;
