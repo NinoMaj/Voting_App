@@ -28,6 +28,7 @@ function PollHandler() {
 
 	// adding new poll
 	this.addPoll = function (req, res) {
+		let pollName = req.body.pollName;
 		let options = [];
 		for (let key in req.body) {
 			if (req.body.hasOwnProperty(key) && key != 'pollName') {
