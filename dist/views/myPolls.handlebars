@@ -8,12 +8,13 @@
 </div>
 
 <div class="container">
-  <h3 class="">All polls</h3>
+  <h3 class="">My polls</h3>
   <ul id="options-list-myPolls">
   </ul>
+  <button type="button" class="btn">ADD POLL</button>
+  <button type="button" class="btn btn-delete">DELETE MODE</button>
+</div>
 
-<script type="text/javascript" src="../controllers/allPollsController.client.js"></script>
+<script type="text/javascript" src="../controllers/pollsController.client.js"></script>
 <script type="text/javascript" src="../common/ajax-functions.js"></script>
-{{#if welcome}}
-<script type="text/javascript" src="../../controllers/userController.client.js"></script>
-{{/if}}
+<script type="text/javascript" src="../controllers/userController.client.js"></script>
