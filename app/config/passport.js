@@ -32,7 +32,7 @@ module.exports = function (passport) {
 				if (existingUser) {
 					// req.flash('errors', { msg: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
 					console.log('There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.')
-					done(err);
+					return done(null, existingUser);
 				} else {
 					User.findById(req.user.id, (err, user) => {
 						if (err) { return done(err); }
@@ -60,7 +60,7 @@ module.exports = function (passport) {
 					if (existingEmailUser) {
 						// req.flash('errors', { msg: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
 						console.log('There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.')
-						done(err);
+						return done(null, existingUser);
 					} else {
 						const user = new User();
 						user.email = profile._json.email // i ovdje promijeniti
