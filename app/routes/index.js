@@ -77,7 +77,7 @@ module.exports = function (app, passport) {
 
 	app.route('/myPolls')
 		.get(isLoggedIn, function (req, res) {
-			res.render('polls/myPolls', {
+			res.render('myPolls', {
 				welcome: req.user
 			});
 		})
@@ -85,7 +85,7 @@ module.exports = function (app, passport) {
 	app.route('/allPolls')
 		.get(function (req, res) {
 			console.log('req:', req)
-			res.render('polls/allPolls', {
+			res.render('allPolls', {
 				welcome: req.user
 			});
 		})
@@ -106,11 +106,11 @@ module.exports = function (app, passport) {
 			pollHandler.addPoll(req, res);
 		});
 
-	app.route('/polls/:id')
+	app.route('/:id')
 		.get(function (req, res) {
 			pollHandler.findPoll(req, res, req.params.id, function (result) {
 				if (result != null) {
-					res.render('polls/poll', {
+					res.render('/poll', {
 						result,
 						reqRoute: req.params.id,
 						resultStr: JSON.stringify(result),
