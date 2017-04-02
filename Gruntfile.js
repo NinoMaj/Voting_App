@@ -254,7 +254,7 @@ module.exports = function (grunt) {
     // Register Tasks
     // Workon
     grunt.registerTask('workon', 'Start working on this project.', [
-        'jshint',
+        // 'jshint',
         'sass:dev',
         'express:dev',
         //'open:site',
