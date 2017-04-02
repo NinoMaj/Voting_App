@@ -19,6 +19,7 @@ let hbs;
 /*
  * Config for Production and Development
  */
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 if (process.env.NODE_ENV === 'production') {
 	// Set the default layout and locate layouts and partials
 	app.engine('handlebars', exphbs({
@@ -44,10 +45,7 @@ if (process.env.NODE_ENV === 'production') {
 	app.set('views', __dirname + '/views');
 
 	// Locate the assets
-	app.use(express.static(__dirname + '/assets'));
-
-	// Locate the assets
-	app.use(express.static(__dirname + '/dist/assets'));
+	app.use('assets', express.static(process.cwd() + '/assets'));
 }
 
 // Set Handlebars
@@ -57,7 +55,7 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('assets', express.static(process.cwd() + '/assets'));
+// app.use('assets', express.static(process.cwd() + '/assets'));
 app.use('/common', express.static(process.cwd() + '/app/common'));
 
 app.use(session({
