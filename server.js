@@ -45,6 +45,9 @@ if (process.env.NODE_ENV === 'production') {
 
 	// Locate the assets
 	app.use(express.static(__dirname + '/assets'));
+
+	// Locate the assets
+	app.use(express.static(__dirname + '/dist/assets'));
 }
 
 // Set Handlebars
