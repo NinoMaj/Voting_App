@@ -17,16 +17,20 @@
   },
   "homepage": "https://github.com/NinoMaj/Voting_App#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.16.0",
     "chart.js": "^2.5.0",
+    "cookie-session": "^2.0.0-beta.1",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.0",
-    "mongoose": "^4.8.1",
+    "jsonwebtoken": "^7.3.0",
+    "mongoose": "^4.8.7",
     "passport": "^0.3.2",
     "passport-github": "^1.1.0",
-    "passport-google-oauth": "^1.0.0"
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "grunt": "*",

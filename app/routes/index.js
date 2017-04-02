@@ -34,6 +34,8 @@ module.exports = function (app, passport) {
 
 	app.route('/login')
 		.get(function (req, res) {
+			console.log('req.params.id in /login', req.params)
+			if (req.params.id == 'favicon.ico') return false;
 			res.render('login', {
 				welcome: false
 			});
@@ -84,7 +86,7 @@ module.exports = function (app, passport) {
 
 	app.route('/allPolls')
 		.get(function (req, res) {
-			console.log('req:', req)
+			console.log('req in /allPolls', req.params.id)
 			res.render('allPolls', {
 				welcome: req.user
 			});
@@ -108,6 +110,8 @@ module.exports = function (app, passport) {
 
 	app.route('/:id')
 		.get(function (req, res) {
+			console.log('req.params.id in /:id', req.params.id)
+			if (req.params.id == 'favicon.ico') return false;
 			pollHandler.findPoll(req, res, req.params.id, function (result) {
 				if (result != null) {
 					res.render('poll', {

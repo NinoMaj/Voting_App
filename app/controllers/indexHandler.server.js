@@ -8,6 +8,7 @@ function PollHandler() {
 
 	// getting all polls from logged in user
 	this.getPolls = function (req, res) {
+		console.log('getPools', req.params.id)
 		Polls
 			.find({ 'author': req.user.profile.name })
 			.exec(function (err, result) {
@@ -18,6 +19,7 @@ function PollHandler() {
 
 	// getting all polls
 	this.getAllPolls = function (req, res) {
+		console.log('getAllPools', req.params.id)
 		Polls
 			.find({})
 			.exec(function (err, result) {
@@ -66,6 +68,7 @@ function PollHandler() {
 
 	// adding vote
 	this.addVote = function (req, res, callback) {
+		console.log('in addVote', req.params.pollId)
 		Polls.findById(req.params.pollId, function (err, poll) {
 			if (err) throw err;
 
@@ -106,6 +109,8 @@ function PollHandler() {
 
 	// find poll that user clicked on
 	this.findPoll = function (req, res, reqRoute, callback) {
+		console.log('reqRoute in find poll', reqRoute)
+		if (reqRoute == 'favicon.ico') return false;
 		Polls
 			.findOne({ _id: reqRoute })
 			.exec(function (err, result) {
