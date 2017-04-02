@@ -34,8 +34,8 @@ module.exports = function (grunt) {
                 ],
             },
             express: {
-                files:  [ 'app.js', '!**/node_modules/**', '!Gruntfile.js' ],
-                tasks:  [ 'express:dev' ],
+                files: ['app.js', '!**/node_modules/**', '!Gruntfile.js'],
+                tasks: ['express:dev'],
                 options: {
                     nospawn: true // Without this option specified express won't be reloaded
                 }
@@ -93,7 +93,7 @@ module.exports = function (grunt) {
         // Express Config
         express: {
             options: {
-              // Override defaults here
+                // Override defaults here
             },
             dev: {
                 options: {
@@ -254,7 +254,7 @@ module.exports = function (grunt) {
     // Register Tasks
     // Workon
     grunt.registerTask('workon', 'Start working on this project.', [
-        // 'jshint',
+        'jshint',
         'sass:dev',
         'express:dev',
         //'open:site',
@@ -268,7 +268,7 @@ module.exports = function (grunt) {
         'express:dev',
         'watch'
     ]);
-    
+
 
     // Build
     grunt.registerTask('build', 'Build production ready assets and views.', [
