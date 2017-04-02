@@ -79,7 +79,7 @@ module.exports = function (app, passport) {
 
 	app.route('/myPolls')
 		.get(isLoggedIn, function (req, res) {
-			res.render('polls/myPolls', {
+			res.render('myPolls', {
 				welcome: req.user
 			});
 		})
@@ -87,7 +87,7 @@ module.exports = function (app, passport) {
 	app.route('/allPolls')
 		.get(function (req, res) {
 			console.log('req in /allPolls', req.params.id)
-			res.render('polls/allPolls', {
+			res.render('allPolls', {
 				welcome: req.user
 			});
 		})
@@ -114,7 +114,7 @@ module.exports = function (app, passport) {
 			if (req.params.id == 'favicon.ico') return false;
 			pollHandler.findPoll(req, res, req.params.id, function (result) {
 				if (result != null) {
-					res.render('poll/poll', {
+					res.render('poll', {
 						result,
 						reqRoute: req.params.id,
 						resultStr: JSON.stringify(result),
