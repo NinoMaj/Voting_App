@@ -32,7 +32,6 @@ module.exports = function (app, passport) {
 
 	app.route('/login')
 		.get(function (req, res) {
-			if (req.params.id == 'favicon.ico') return false;
 			res.render('login', {
 				welcome: false
 			});
