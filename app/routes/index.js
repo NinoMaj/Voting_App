@@ -1,7 +1,6 @@
 'use strict';
 
 var path = process.cwd();
-// var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var PollHandler = require(path + '/app/controllers/indexHandler.server.js');
 
 module.exports = function (app, passport) {
@@ -107,7 +106,6 @@ module.exports = function (app, passport) {
 
 	app.route('/:id')
 		.get(function (req, res) {
-			if (req.params.id == 'favicon.ico') return false;
 			pollHandler.findPoll(req, res, req.params.id, function (result) {
 				if (result != null) {
 					res.render('poll', {
