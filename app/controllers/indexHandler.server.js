@@ -8,7 +8,6 @@ function PollHandler() {
 
 	// getting all polls from logged in user
 	this.getPolls = function (req, res) {
-		console.log('getPools', req.params.id)
 		Polls
 			.find({ 'author': req.user.profile.name })
 			.exec(function (err, result) {
@@ -19,7 +18,6 @@ function PollHandler() {
 
 	// getting all polls
 	this.getAllPolls = function (req, res) {
-		console.log('getAllPools', req.params.id)
 		Polls
 			.find({})
 			.exec(function (err, result) {
