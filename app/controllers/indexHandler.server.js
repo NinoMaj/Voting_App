@@ -58,7 +58,7 @@ function PollHandler() {
 			res.render('pollSubmitted', {
 				welcome: true,
 				URLname: pollName,
-				URL: process.env.APP_URL + 'polls/' + poll._id
+				URL: process.env.APP_URL + '/' + poll._id
 			});
 		});
 
